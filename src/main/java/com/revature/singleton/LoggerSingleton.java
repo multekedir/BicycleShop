@@ -21,8 +21,8 @@ public class LoggerSingleton {
     public static Logger getLogger() {
         if (loggerSingleton == null) {
             loggerSingleton = new LoggerSingleton();
+            logger.info("created singleton: Logger");
         }
-        logger.info("created singleton: " + loggerSingleton);
         return logger;
     }
 }
