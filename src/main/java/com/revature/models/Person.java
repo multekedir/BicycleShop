@@ -1,9 +1,9 @@
 package com.revature.models;
 
-import com.revature.singleton.LoggerSingleton;
-
 import java.util.Objects;
 import java.util.StringJoiner;
+
+import static com.revature.singleton.LoggerSingleton.getLogger;
 
 
 /**
@@ -17,13 +17,13 @@ public class Person {
     public Person() {
         this.firstName = "firstName";
         this.lastName = "lastName";
-        LoggerSingleton.logger.info("Created Person with default constructor");
+        getLogger().info("Created Person with default constructor");
     }
 
     public Person(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
-        LoggerSingleton.logger.info("Created Person");
+        getLogger().info("Created Person");
     }
 
     /**
