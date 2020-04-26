@@ -12,7 +12,7 @@ public class GenericDAO<T> {
     public static int id = 0;
     Map<Integer, T> storage = new HashMap<Integer, T>();
 
-    public Integer create(T t) {
+    public Integer add(T t) {
         storage.put(id, t);
         return id++;
     }

@@ -3,10 +3,12 @@ package com.revature.models;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.StringJoiner;
 
 import static com.revature.singleton.LoggerSingleton.getLogger;
 
 public class User extends Person {
+
 
     private String username;
     private String password;
@@ -64,6 +66,35 @@ public class User extends Person {
      * @return true password match
      */
     public boolean checkPassword(String password) {
+        System.out.println("Password failed");
+        getLogger().info("Password failed");
         return this.password.equals(password);
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", this.getClass().getSimpleName() + "[", "]")
+                .add("firstName = " + this.getFirstName())
+                .add("lastName = " + this.getLastName())
+                .add("username = " + username)
+                .toString();
+    }
+
+    /**
+     * Gets isEmployee.
+     *
+     * @return Value of isEmployee.
+     */
+    public boolean isIsEmployee() {
+        return isEmployee;
+    }
+
+    /**
+     * Sets new isEmployee.
+     *
+     * @param isEmployee New value of isEmployee.
+     */
+    public void setIsEmployee(boolean isEmployee) {
+        this.isEmployee = isEmployee;
     }
 }
