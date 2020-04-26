@@ -6,14 +6,22 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import static com.revature.singleton.LoggerSingleton.getLogger;
+
 
 public class GenericDAO<T> {
 
+    private final Class<T> clazz;
     public static int id = 0;
     Map<Integer, T> storage = new HashMap<Integer, T>();
 
+    public GenericDAO(Class<T> clazz) {
+        this.clazz = clazz;
+    }
+
     public Integer add(T t) {
         storage.put(id, t);
+        getLogger().debug("Added " + clazz.getSimpleName() + " with ID =" + id);
         return id++;
     }
 
@@ -29,13 +37,29 @@ public class GenericDAO<T> {
         return toReturn;
     }
 
+    public Map<Integer, T> getAllMap() {
+
+        return storage;
+    }
+
+    public Integer size() {
+
+        return storage.size();
+    }
+
     public void update(int id, T updated) {
         storage.put(id, updated);
     }
 
-    public void delete(int id) {
-        System.out.println("Removing " + this.getById(id));
-        storage.remove(id);
+    public boolean delete(int id) {
+        System.out.println(storage);
+        if (storage.containsKey(id)) {
+            storage.remove(id);
+            getLogger().debug("Removed " + clazz.getSimpleName() + " with ID = " + id);
+            return true;
+        }
+        getLogger().error("ID not found");
+        return false;
     }
 
 

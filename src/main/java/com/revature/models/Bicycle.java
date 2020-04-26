@@ -2,7 +2,10 @@ package com.revature.models;
 
 import com.revature.singleton.LoggerSingleton;
 
+import java.util.StringJoiner;
+
 public class Bicycle {
+    private Integer id;
     private String name;
     private double cost;
     private Person owner;
@@ -76,4 +79,32 @@ public class Bicycle {
     }
 
 
+    /**
+     * Gets id.
+     *
+     * @return Value of id.
+     */
+    public Integer getId() {
+        return id;
+    }
+
+    /**
+     * Sets new id.
+     *
+     * @param id New value of id.
+     */
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", this.getClass().getSimpleName() + "[", "]")
+                .add("cost = " + cost)
+                .add("id = " + id)
+                .add("name = " + name)
+                .add("owner = " + owner)
+                .toString();
+    }
 }

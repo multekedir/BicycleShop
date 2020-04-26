@@ -12,7 +12,7 @@ public class LoginService {
     private static GenericDAO<User> userDB;
 
     static {
-        userDB = new GenericDAO();
+        userDB = new GenericDAO(User.class);
     }
 
 
