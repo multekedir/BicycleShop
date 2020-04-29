@@ -7,14 +7,26 @@ import java.util.StringJoiner;
 
 import static com.revature.singleton.LoggerSingleton.getLogger;
 
+/**
+ * The type User.
+ */
 public class User extends Person {
 
 
     private String username;
-    private String password;
-    private Map<Bicycle, Double> offers = new HashMap<Bicycle, Double>();
+    private final String password;
+    private final Map<Bicycle, Double> offers = new HashMap<Bicycle, Double>();
     private boolean isEmployee;
 
+    /**
+     * Instantiates a new User.
+     *
+     * @param firstName  the first name
+     * @param lastName   the last name
+     * @param username   the username
+     * @param password   the password
+     * @param isEmployee the is employee
+     */
     public User(String firstName, String lastName, String username, String password, boolean isEmployee) {
         this.username = username;
         this.password = password;
@@ -36,10 +48,12 @@ public class User extends Person {
     /**
      * Sets new offers.
      *
-     * @param offers New value of offers.
+     * @param bicycle the bicycle
+     * @param cost    the offer amount
      */
-    public void setOffers(Map offers) {
-        this.offers = offers;
+    public void makeOffer(Bicycle bicycle, double cost) {
+        getLogger().info(this.username + " made offer for " + bicycle.getName() + " for " + cost);
+        this.offers.put(bicycle, cost);
     }
 
     /**
@@ -63,6 +77,7 @@ public class User extends Person {
     /**
      * checks if password is the same
      *
+     * @param password the password
      * @return true password match
      */
     public boolean checkPassword(String password) {
