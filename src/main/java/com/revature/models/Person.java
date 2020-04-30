@@ -17,13 +17,13 @@ public class Person {
     public Person() {
         this.firstName = "firstName";
         this.lastName = "lastName";
-        getLogger().info("Created Person with default constructor");
+        getLogger(Person.class).info("Created Person with default constructor");
     }
 
     public Person(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
-        getLogger().info("Created Person");
+        getLogger(Person.class).info("Created Person");
     }
 
     /**

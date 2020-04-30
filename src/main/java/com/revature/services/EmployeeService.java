@@ -7,29 +7,29 @@ import static com.revature.singleton.LoggerSingleton.getLogger;
 
 
 public class EmployeeService {
-    private static GenericDAO<Bicycle> bicycleDB;
+    private static final GenericDAO<Bicycle> bicycleDB;
 
     static {
         bicycleDB = new GenericDAO(Bicycle.class);
     }
 
     public static Bicycle addBicycle(Bicycle bicycle) {
-        getLogger().info("Adding Bicycle");
+        getLogger(EmployeeService.class).info("Adding Bicycle");
         int id = bicycleDB.add(bicycle);
         bicycle.setId(id);
         return bicycle;
     }
 
     public static boolean removeBicycle(Bicycle bicycle) {
-        getLogger().debug("Removing -> " + bicycle);
+        getLogger(EmployeeService.class).debug("Removing -> " + bicycle);
         if (bicycleDB.size() > 0 && bicycle != null) {
             if (bicycle.getId() != null) {
                 return bicycleDB.delete(bicycle.getId());
             }
-            getLogger().error("Bicycle not added properly. ID is NULL " + bicycle);
+            getLogger(EmployeeService.class).error("Bicycle not added properly. ID is NULL " + bicycle);
 
         }
-        getLogger().error("Something went wrong  " + bicycle);
+        getLogger(EmployeeService.class).error("Something went wrong  " + bicycle);
         return false;
     }
 

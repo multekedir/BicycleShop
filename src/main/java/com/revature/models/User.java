@@ -33,7 +33,7 @@ public class User extends Person {
         this.isEmployee = isEmployee;
         setFirstName(firstName);
         setFirstName(lastName);
-        getLogger().info("Created User");
+        getLogger(User.class).info("Created User");
     }
 
     /**
@@ -52,7 +52,7 @@ public class User extends Person {
      * @param cost    the offer amount
      */
     public void makeOffer(Bicycle bicycle, double cost) {
-        getLogger().info(this.username + " made offer for " + bicycle.getName() + " for " + cost);
+        getLogger(User.class).info(this.username + " made offer for " + bicycle.getName() + " for " + cost);
         this.offers.put(bicycle, cost);
     }
 
@@ -82,7 +82,7 @@ public class User extends Person {
      */
     public boolean checkPassword(String password) {
         System.out.println("Password failed");
-        getLogger().info("Password failed");
+        getLogger(User.class).info("Password failed");
         return this.password.equals(password);
     }
 

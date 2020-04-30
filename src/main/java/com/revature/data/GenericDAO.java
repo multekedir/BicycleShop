@@ -21,7 +21,7 @@ public class GenericDAO<T> {
 
     public Integer add(T t) {
         storage.put(id, t);
-        getLogger().debug("Added " + clazz.getSimpleName() + " with ID =" + id);
+        getLogger(GenericDAO.class).debug("Added " + clazz.getSimpleName() + " with ID =" + id);
         return id++;
     }
 
@@ -55,10 +55,10 @@ public class GenericDAO<T> {
         System.out.println(storage);
         if (storage.containsKey(id)) {
             storage.remove(id);
-            getLogger().debug("Removed " + clazz.getSimpleName() + " with ID = " + id);
+            getLogger(GenericDAO.class).debug("Removed " + clazz.getSimpleName() + " with ID = " + id);
             return true;
         }
-        getLogger().error("ID not found");
+        getLogger(GenericDAO.class).error("ID not found");
         return false;
     }
 

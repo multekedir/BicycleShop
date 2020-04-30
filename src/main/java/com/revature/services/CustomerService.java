@@ -28,13 +28,13 @@ public class CustomerService {
     }
 
     public static boolean makeOffer(User user, Bicycle bicycle, double offer) {
-        getLogger().info("Making offer");
+        getLogger(CustomerService.class).info("Making offer");
         if (bicycle != null && bicycle.getOwner() == null) {
-            getLogger().debug("Offer went thru for Bicycle: " + bicycle);
+            getLogger(CustomerService.class).debug("Offer went thru for Bicycle: " + bicycle);
             user.makeOffer(bicycle, offer);
             return true;
         }
-        getLogger().debug("Offer Didn't go thru for Bicycle: " + bicycle);
+        getLogger(CustomerService.class).debug("Offer Didn't go thru for Bicycle: " + bicycle);
         System.out.println("Bicycle has an owner");
         return false;
     }

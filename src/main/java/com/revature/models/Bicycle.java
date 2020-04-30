@@ -15,13 +15,13 @@ public class Bicycle {
         this.name = name;
         this.cost = cost;
         this.owner = owner;
-        LoggerSingleton.getLogger().info("Created Person with all defined");
+        LoggerSingleton.getLogger(Bicycle.class).info("Created Person with all defined");
     }
 
     public Bicycle(String name, double cost) {
         this.name = name;
         this.cost = cost;
-        LoggerSingleton.getLogger().info("Created Person with name and cost");
+        LoggerSingleton.getLogger(Bicycle.class).info("Created Person with name and cost");
     }
 
     /**

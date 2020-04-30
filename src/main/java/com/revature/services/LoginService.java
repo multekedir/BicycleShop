@@ -9,7 +9,7 @@ import static com.revature.singleton.LoggerSingleton.getLogger;
  * The type Login service.
  */
 public class LoginService {
-    private static GenericDAO<User> userDB;
+    private static final GenericDAO<User> userDB;
 
     static {
         userDB = new GenericDAO(User.class);
@@ -24,15 +24,15 @@ public class LoginService {
      * @return the user
      */
     public static User login(String username, String password) {
-        getLogger().info("Logging in  user");
-        getLogger().debug("Checking user: " + username);
+        getLogger(LoginService.class).info("Logging in  user");
+        getLogger(LoginService.class).debug("Checking user: " + username);
         for (User user : userDB.getAll()) {
             if (user.getUsername().equals(username) && user.checkPassword(password)) {
-                getLogger().debug("User found: " + user);
+                getLogger(LoginService.class).debug("User found: " + user);
                 return user;
             }
         }
-        getLogger().info("User not found");
+        getLogger(LoginService.class).info("User not found");
         return null;
     }
 
@@ -43,7 +43,7 @@ public class LoginService {
      * @return the user ID
      */
     public static Integer register(User user) {
-        getLogger().info("Registering user");
+        getLogger(LoginService.class).info("Registering user");
         return userDB.add(user);
     }
 
