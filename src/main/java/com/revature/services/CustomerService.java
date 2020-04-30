@@ -2,6 +2,7 @@ package com.revature.services;
 
 import com.revature.data.DAOFactory.DB;
 import com.revature.models.Bicycle;
+import com.revature.models.Offer;
 import com.revature.models.User;
 
 import java.util.ArrayList;
@@ -28,11 +29,13 @@ public class CustomerService {
         return availableBicycles;
     }
 
-    public static boolean makeOffer(User user, Bicycle bicycle, double offer) {
+    public static boolean makeOffer(User user, Bicycle bicycle, double amount) {
         getLogger(CustomerService.class).info("Making offer");
         if (bicycle != null && bicycle.getOwner() == null) {
+            Offer newOffer = new Offer(user, bicycle, amount);
+            newOffer.setId(getDAO(DB.Offer).add(newOffer));
+
             getLogger(CustomerService.class).debug("Offer went thru for Bicycle: " + bicycle);
-            user.makeOffer(bicycle, offer);
             return true;
         }
         getLogger(CustomerService.class).debug("Offer Didn't go thru for Bicycle: " + bicycle);

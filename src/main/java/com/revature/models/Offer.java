@@ -12,10 +12,9 @@ public class Offer {
     public Offer() {
     }
 
-    public Offer(User user, Bicycle bicycle, int id, double amount, Person acceptedBy) {
+    public Offer(User user, Bicycle bicycle, double amount) {
         this.user = user;
         this.bicycle = bicycle;
-        this.id = id;
         this.amount = amount;
         this.acceptedBy = acceptedBy;
     }

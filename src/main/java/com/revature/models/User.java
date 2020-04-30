@@ -1,8 +1,6 @@
 package com.revature.models;
 
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.StringJoiner;
 
 import static com.revature.singleton.LoggerSingleton.getLogger;
@@ -15,7 +13,6 @@ public class User extends Person {
 
     private String username;
     private final String password;
-    private final Map<Bicycle, Double> offers = new HashMap<Bicycle, Double>();
     private boolean isEmployee;
 
     /**
@@ -36,25 +33,6 @@ public class User extends Person {
         getLogger(User.class).info("Created User");
     }
 
-    /**
-     * Gets offers.
-     *
-     * @return Value of offers.
-     */
-    public Map getOffers() {
-        return offers;
-    }
-
-    /**
-     * Sets new offers.
-     *
-     * @param bicycle the bicycle
-     * @param cost    the offer amount
-     */
-    public void makeOffer(Bicycle bicycle, double cost) {
-        getLogger(User.class).info(this.username + " made offer for " + bicycle.getName() + " for " + cost);
-        this.offers.put(bicycle, cost);
-    }
 
     /**
      * Gets username.
