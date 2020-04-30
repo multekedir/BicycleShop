@@ -1,6 +1,16 @@
 package com.revature.models;
 
+/**
+ * The type Offer.
+ */
 public class Offer {
+    private String status;
+
+    /**
+     * Instantiates a new Offer.
+     */
+    public Offer() {
+    }
 
     private User user;
     private Bicycle bicycle;
@@ -9,14 +19,28 @@ public class Offer {
     private Person acceptedBy;
 
 
-    public Offer() {
-    }
-
+    /**
+     * Instantiates a new Offer.
+     *
+     * @param user    the user
+     * @param bicycle the bicycle
+     * @param amount  the amount
+     */
     public Offer(User user, Bicycle bicycle, double amount) {
         this.user = user;
         this.bicycle = bicycle;
         this.amount = amount;
+    }
+
+    /**
+     * Sets new status.
+     *
+     * @param s          New value of status.
+     * @param acceptedBy employee accepting offer
+     */
+    public void setStatus(Status s, Person acceptedBy) {
         this.acceptedBy = acceptedBy;
+        this.status = String.valueOf(s);
     }
 
     /**
@@ -107,5 +131,28 @@ public class Offer {
      */
     public void setAcceptedBy(Person acceptedBy) {
         this.acceptedBy = acceptedBy;
+    }
+
+    /**
+     * Gets status.
+     *
+     * @return Value of status.
+     */
+    public String getStatus() {
+        return status;
+    }
+
+    /**
+     * The enum Status.
+     */
+    public enum Status {
+        /**
+         * Accepted status.
+         */
+        ACCEPTED,
+        /**
+         * Denied status.
+         */
+        DENIED
     }
 }

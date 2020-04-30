@@ -13,7 +13,7 @@ public class GenericDAO<T> {
 
     private final Class<T> clazz;
     public static int id = 0;
-    Map<Integer, T> storage = new HashMap<Integer, T>();
+    Map<Integer, T> storage = new HashMap<>();
 
     public GenericDAO(Class<T> clazz) {
         this.clazz = clazz;
@@ -30,7 +30,7 @@ public class GenericDAO<T> {
     }
 
     public Set<T> getAll() {
-        Set toReturn = new HashSet<T>();
+        Set<T> toReturn = new HashSet<>();
         for (int i : storage.keySet()) {
             toReturn.add(storage.get(i));
         }
@@ -49,6 +49,8 @@ public class GenericDAO<T> {
 
     public void update(int id, T updated) {
         storage.put(id, updated);
+        getLogger(GenericDAO.class).debug("Updated " + clazz.getSimpleName() + " with ID =" + id);
+
     }
 
     public boolean delete(int id) {
