@@ -1,25 +1,25 @@
 package com.revature.services;
 
-import com.revature.data.GenericDAO;
+import com.revature.data.DAOFactory.DB;
 import com.revature.models.Bicycle;
 import com.revature.models.User;
 
 import java.util.ArrayList;
+import java.util.Set;
 
-import static com.revature.services.EmployeeService.getBicycleDB;
+import static com.revature.data.DAOFactory.getDAO;
 import static com.revature.singleton.LoggerSingleton.getLogger;
 
-public class CustomerService {
-    private static final GenericDAO<Bicycle> bicycleDB;
 
-    static {
-        bicycleDB = getBicycleDB();
-    }
+public class CustomerService {
+
 
     public static ArrayList<Bicycle> getAvailableBicycles() {
         ArrayList<Bicycle> availableBicycles = new ArrayList();
-        if (bicycleDB != null) {
-            for (Bicycle bicycle : bicycleDB.getAll()) {
+        Set<Bicycle> bicycles = getDAO(DB.Bicycle).getAll();
+
+        if (getDAO(DB.Bicycle) != null) {
+            for (Bicycle bicycle : bicycles) {
                 if (bicycle.getOwner() == null)
                     availableBicycles.add(bicycle);
             }
