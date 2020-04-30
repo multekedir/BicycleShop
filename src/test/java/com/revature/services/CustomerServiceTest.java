@@ -3,6 +3,7 @@ package com.revature.services;
 import com.revature.models.Bicycle;
 import com.revature.models.Person;
 import com.revature.models.User;
+import org.junit.Before;
 import org.junit.Test;
 
 import static com.revature.services.CustomerService.getAvailableBicycles;
@@ -13,6 +14,12 @@ public class CustomerServiceTest {
     private final String NAME = "ROUBAIX";
     private final double COST = 1000;
 
+    @Before
+    public void setup() {
+        for (Bicycle bicycle : getAvailableBicycles()) {
+            EmployeeService.removeBicycle(bicycle);
+        }
+    }
 
     @Test
     public void testGetAvailableBicycles() {

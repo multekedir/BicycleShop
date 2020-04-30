@@ -52,7 +52,6 @@ public class GenericDAO<T> {
     }
 
     public boolean delete(int id) {
-        System.out.println(storage);
         if (storage.containsKey(id)) {
             storage.remove(id);
             getLogger(GenericDAO.class).debug("Removed " + clazz.getSimpleName() + " with ID = " + id);

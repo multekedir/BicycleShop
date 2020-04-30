@@ -1,6 +1,7 @@
 package com.revature.services;
 
 import com.revature.data.DAOFactory.DB;
+import com.revature.data.GenericDAO;
 import com.revature.models.User;
 
 import java.util.Set;
@@ -45,5 +46,9 @@ public class LoginService {
     public static Integer register(User user) {
         getLogger(LoginService.class).info("Registering user");
         return getDAO(DB.User).add(user);
+    }
+
+    public static GenericDAO<Object> getUserDB() {
+        return getDAO(DB.User);
     }
 }

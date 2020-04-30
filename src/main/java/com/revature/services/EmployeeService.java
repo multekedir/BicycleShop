@@ -2,6 +2,7 @@ package com.revature.services;
 
 
 import com.revature.data.DAOFactory.DB;
+import com.revature.data.GenericDAO;
 import com.revature.models.Bicycle;
 
 import static com.revature.data.DAOFactory.getDAO;
@@ -29,6 +30,10 @@ public class EmployeeService {
         }
         getLogger(EmployeeService.class).error("Something went wrong  " + bicycle);
         return false;
+    }
+
+    public static GenericDAO<Bicycle> getBicycleDB() {
+        return getDAO(DB.Bicycle);
     }
 
 }

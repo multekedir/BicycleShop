@@ -52,7 +52,8 @@ public class LoginServiceTest {
     public void testRegisterEmploy() {
         User newUser = new User("first_e", "last_e", "employ", "password", true);
         int id = LoginService.register(newUser);
-        assertTrue(LoginService.getUserDB().getById(id).isIsEmployee());
+        User user = (User) LoginService.getUserDB().getById(id);
+        assertTrue(user.isIsEmployee());
         assertEquals(newUser, LoginService.getUserDB().getById(id));
     }
 

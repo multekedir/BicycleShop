@@ -81,7 +81,7 @@ public class User extends Person {
      * @return true password match
      */
     public boolean checkPassword(String password) {
-        System.out.println("Password failed");
+//        System.out.println("Password failed");
         getLogger(User.class).info("Password failed");
         return this.password.equals(password);
     }

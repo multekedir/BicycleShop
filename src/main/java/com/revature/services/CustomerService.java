@@ -14,6 +14,7 @@ import static com.revature.singleton.LoggerSingleton.getLogger;
 public class CustomerService {
 
 
+
     public static ArrayList<Bicycle> getAvailableBicycles() {
         ArrayList<Bicycle> availableBicycles = new ArrayList();
         Set<Bicycle> bicycles = getDAO(DB.Bicycle).getAll();
@@ -35,7 +36,7 @@ public class CustomerService {
             return true;
         }
         getLogger(CustomerService.class).debug("Offer Didn't go thru for Bicycle: " + bicycle);
-        System.out.println("Bicycle has an owner");
+//        System.out.println("Bicycle has an owner");
         return false;
     }
 
