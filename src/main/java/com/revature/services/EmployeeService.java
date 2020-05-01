@@ -59,8 +59,13 @@ public class EmployeeService {
         return false;
     }
 
+    public static boolean rejectOfferAll(Bicycle bicycle, User employee) {
+        return false;
+    }
+
     public static GenericDAO<Bicycle> getBicycleDB() {
         return getDAO(DB.Bicycle);
     }
+
 
 }

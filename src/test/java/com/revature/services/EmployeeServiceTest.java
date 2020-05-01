@@ -76,8 +76,6 @@ public class EmployeeServiceTest {
         Offer offer = new Offer(user, bicycle, 100);
         assertTrue(rejectOffer(offer, employe));
         assertNull(bicycle.getOwner());
-
-
     }
 
 
