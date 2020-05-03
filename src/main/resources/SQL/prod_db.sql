@@ -5,26 +5,26 @@ conn bicycle_shop_app/p4ssw0rd;
 ********************************************************************************/
 create table users
 (
-    "EmployeeID " number(10) generated as identity,
-    "UserName"    varchar2(255) not null,
-    "FirstName "  varchar2(255) not null,
-    "LastName "   varchar2(255) not null,
-    "Password"    varchar2(255) not null,
-    "Role"        varchar2(100) not null
+    id         number(10) generated as identity,
+    user_name  varchar2(255) not null,
+    first_name varchar2(255) not null,
+    last_name  varchar2(255) not null,
+    password   varchar2(255) not null,
+    role       varchar2(100) not null
 )
 /
 
 create unique index "USERS_EMPLOYEEID _UINDEX"
-    on users ("EmployeeID ")
+    on users (id)
 /
 
 create unique index USERS_USERNAME_UINDEX
-    on users ("UserName")
+    on users (user_name)
 /
 
 alter table users
     add constraint USERS_PK
-        primary key ("EmployeeID ")
+        primary key (id)
 /
 
 commit;

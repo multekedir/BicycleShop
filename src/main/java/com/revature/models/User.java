@@ -11,26 +11,35 @@ import static com.revature.singleton.LoggerSingleton.getLogger;
 public class User extends Person {
 
 
+    private Role role;
     private String username;
     private final String password;
-    private boolean isEmployee;
 
     /**
      * Instantiates a new User.
      *
-     * @param firstName  the first name
-     * @param lastName   the last name
-     * @param username   the username
-     * @param password   the password
-     * @param isEmployee the is employee
+     * @param firstName the first name
+     * @param lastName  the last name
+     * @param username  the username
+     * @param password  the password
+     * @param role      the role
      */
-    public User(String firstName, String lastName, String username, String password, boolean isEmployee) {
+    public User(String firstName, String lastName, String username, String password, Role role) {
         this.username = username;
         this.password = password;
-        this.isEmployee = isEmployee;
+        this.role = role;
         setFirstName(firstName);
         setFirstName(lastName);
         getLogger(User.class).info("Created User");
+    }
+
+    /**
+     * Gets password.
+     *
+     * @return Value of password.
+     */
+    public String getPassword() {
+        return password;
     }
 
 
@@ -73,21 +82,15 @@ public class User extends Person {
                 .toString();
     }
 
-    /**
-     * Gets isEmployee.
-     *
-     * @return Value of isEmployee.
-     */
-    public boolean isIsEmployee() {
-        return isEmployee;
+    public Role getRole() {
+        return role;
     }
 
-    /**
-     * Sets new isEmployee.
-     *
-     * @param isEmployee New value of isEmployee.
-     */
-    public void setIsEmployee(boolean isEmployee) {
-        this.isEmployee = isEmployee;
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    enum Role {
+        Employee, Customer, Manager
     }
 }

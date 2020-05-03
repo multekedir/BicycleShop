@@ -26,7 +26,7 @@ public class SQLBuilder {
     }
 
 
-    public static String update(String schema, String tableName, String whereColumn, String... columns) {
+    public static String update(String tableName, String whereColumn, String... columns) {
         StringBuilder builder = new StringBuilder("UPDATE ").append(tableName).append(" SET ");
         for (String column : columns) {
             builder.append(column).append("=?,");
@@ -34,12 +34,13 @@ public class SQLBuilder {
         return builder.deleteCharAt(builder.length() - 1).append(" WHERE ").append(whereColumn).append("=?;").toString();
     }
 
-    public static String selectWhere(String schema, String tableName, String operator, String... columns) {
+    public static String selectWhere(String tableName, String operator, String... columns) {
         StringBuilder builder = new StringBuilder("SELECT  * FROM ").append(tableName).append(" WHERE ");
         for (String column : columns) {
-            builder.append(column).append(" = ? ").append(operator);
+            builder.append(column).append(" = ? ").append(operator + " ");
         }
-        return builder.toString();
+
+        return builder.deleteCharAt(builder.length() - 2).toString() + ";";
     }
 
 
