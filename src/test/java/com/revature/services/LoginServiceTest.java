@@ -4,7 +4,10 @@ import com.revature.models.User;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static com.revature.models.User.Role.Customer;
+import static com.revature.models.User.Role.Employee;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 
 public class LoginServiceTest {
@@ -18,7 +21,7 @@ public class LoginServiceTest {
 
     @Test
     public void testLogin() {
-        User newUser = new User("first", "last", "username", "password", false);
+        User newUser = new User("first", "last", "username", "password", Customer);
 
         LoginService.register(newUser);
         assertEquals(newUser, LoginService.login("username", "password"));
@@ -26,7 +29,7 @@ public class LoginServiceTest {
 
     @Test
     public void testLoginBadUsername() {
-        User newUser = new User("first", "last", "username", "password", false);
+        User newUser = new User("first", "last", "username", "password", Customer);
 
         LoginService.register(newUser);
         assertNull(LoginService.login("badusername", "password"));
@@ -34,7 +37,7 @@ public class LoginServiceTest {
 
     @Test
     public void testLoginBadPassword() {
-        User newUser = new User("first", "last", "username", "password", false);
+        User newUser = new User("first", "last", "username", "password", Customer);
 
         LoginService.register(newUser);
         assertNull(LoginService.login("username", "badpassword"));
@@ -42,7 +45,7 @@ public class LoginServiceTest {
 
     @Test
     public void register() {
-        User newUser = new User("first", "last", "username", "password", false);
+        User newUser = new User("first", "last", "username", "password", Customer);
         int id = LoginService.register(newUser);
 
         assertEquals(newUser, LoginService.getUserDB().getById(id));
@@ -50,10 +53,10 @@ public class LoginServiceTest {
 
     @Test
     public void testRegisterEmploy() {
-        User newUser = new User("first_e", "last_e", "employ", "password", true);
+        User newUser = new User("first_e", "last_e", "employ", "password", Employee);
         int id = LoginService.register(newUser);
         User user = (User) LoginService.getUserDB().getById(id);
-        assertTrue(user.isIsEmployee());
+//        assertTrue(user.isIsEmployee());
         assertEquals(newUser, LoginService.getUserDB().getById(id));
     }
 

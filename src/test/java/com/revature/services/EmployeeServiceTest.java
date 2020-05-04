@@ -3,6 +3,7 @@ package com.revature.services;
 import com.revature.models.Bicycle;
 import com.revature.models.Offer;
 import com.revature.models.User;
+import com.revature.models.User.Role;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -59,8 +60,8 @@ public class EmployeeServiceTest {
     public void testAcceptOffer() {
         addBicycle(bicycle);
         assertNull(bicycle.getOwner());
-        User user = new User("Multezem", "Kedir", "multek", "password", true);
-        User employe = new User("Multezem", "Kedir", "multek", "password", true);
+        User user = new User("Multezem", "Kedir", "multek", "password", Role.Employee);
+        User employe = new User("Multezem", "Kedir", "multek", "password", Role.Employee);
         Offer offer = new Offer(user, bicycle, 100);
         assertTrue(acceptOffer(offer, employe));
         assertEquals(user, bicycle.getOwner());
@@ -71,8 +72,8 @@ public class EmployeeServiceTest {
     public void testRejectOffer() {
         addBicycle(bicycle);
         assertNull(bicycle.getOwner());
-        User user = new User("Multezem", "Kedir", "multek", "password", true);
-        User employe = new User("Multezem", "Kedir", "multek", "password", true);
+        User user = new User("Multezem", "Kedir", "multek", "password", Role.Employee);
+        User employe = new User("Multezem", "Kedir", "multek", "password", Role.Employee);
         Offer offer = new Offer(user, bicycle, 100);
         assertTrue(rejectOffer(offer, employe));
         assertNull(bicycle.getOwner());

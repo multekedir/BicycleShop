@@ -21,7 +21,7 @@ public class ConnectionUtil {
                     getResourceAsStream("database.properties");
             getLogger(ConnectionUtil.class).info("Loaded Database Properties ");
             prop.load(dbProperties);
-            getLogger(ConnectionUtil.class).debug("dbProperties: " + dbProperties);
+            getLogger(ConnectionUtil.class).debug("dbProperties: " + prop.entrySet());
         } catch (Exception e) {
             e.printStackTrace();
         }

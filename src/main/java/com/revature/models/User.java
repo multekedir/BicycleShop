@@ -90,7 +90,7 @@ public class User extends Person {
         this.role = role;
     }
 
-    enum Role {
+    public enum Role {
         Employee, Customer, Manager
     }
 }

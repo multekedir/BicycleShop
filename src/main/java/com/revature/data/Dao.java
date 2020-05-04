@@ -3,13 +3,12 @@ package com.revature.data;
 import java.util.Set;
 
 public interface Dao<T> {
-    T getUser();
-
-    Set<T> getAll();
-
-    Object getByID(int id);
 
     boolean insert(T t);
+
+    T getUserByID(int id);
+
+    Set<T> getAll();
 
     boolean update(T t);
 

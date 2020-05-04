@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Set;
 
+import static com.revature.singleton.LoggerSingleton.getLogger;
 import static com.revature.utility.SQLBuilder.insertInto;
 
 public class UserDAO implements Dao<User> {
@@ -22,25 +23,42 @@ public class UserDAO implements Dao<User> {
     @Override
     public boolean insert(User user) {
         Connection conn = cu.getConnection();
+        String sql;
+        getLogger(UserDAO.class).debug("Adding " + user);
         try {
             conn.setAutoCommit(false);
-            String sql = insertInto("users", "user_name", "first_name", "last_name", "password", "role");
-            PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, user.getUsername());
-            pstmt.setString(1, user.getFirstName());
-            pstmt.setString(1, user.getLastName());
-            pstmt.setString(1, user.getPassword());
-            pstmt.setString(1, String.valueOf(user.getRole()));
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+            sql = insertInto("users", "user_name", "first_name", "last_name", "password", "role");
+            getLogger(UserDAO.class).debug("My SQL statement " + sql);
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, user.getUsername());
+            ps.setString(2, user.getFirstName());
+            ps.setString(3, user.getLastName());
+            ps.setString(4, user.getPassword());
+            ps.setString(5, String.valueOf(user.getRole()));
+            getLogger(UserDAO.class).trace("My SQL statement " + ps.toString());
 
+            //should return number of rows affected
+            int i = ps.executeUpdate();
+            if (i == 1) {
+                conn.commit();
+                getLogger(UserDAO.class).debug("Added User" + user);
+                return true;
+            }
+            getLogger(UserDAO.class).info("Cat not added successfully.");
+            conn.rollback();
+        } catch (SQLException ex) {
+            getLogger(UserDAO.class).error(ex.toString());
+        }
+        getLogger(UserDAO.class).info("User not added");
         return false;
     }
 
     @Override
-    public User getUser() {
-        return null;
+    public User getUserByID(int id) {
+        getLogger(UserDAO.class).info("Getting user using ID");
+        User user = null;
+        return user;
+
     }
 
     @Override
@@ -48,10 +66,6 @@ public class UserDAO implements Dao<User> {
         return null;
     }
 
-    @Override
-    public Object getByID(int id) {
-        return null;
-    }
 
     @Override
     public boolean update(User user) {

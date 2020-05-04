@@ -21,7 +21,7 @@ public class SQLBuilder {
         for (String column : columns) {
             builder.append("?,");
         }
-        builder.deleteCharAt(builder.length() - 1).append(");");
+        builder.deleteCharAt(builder.length() - 1).append(")");
         return builder.toString();
     }
 

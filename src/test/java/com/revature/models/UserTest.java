@@ -1,5 +1,6 @@
 package com.revature.models;
 
+import com.revature.models.User.Role;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -10,7 +11,7 @@ public class UserTest {
 
     @Before
     public void setUp() {
-        user = new User("Multezem", "Test", "testuser", "no password", false);
+        user = new User("Multezem", "Test", "testuser", "no password", Role.Customer);
     }
 
     @Test
