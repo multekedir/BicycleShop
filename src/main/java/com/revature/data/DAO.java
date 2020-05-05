@@ -35,7 +35,7 @@ public abstract class DAO<T> {
         return false;
     }
 
-    public T getUserByID(int id, String tableName, Connection conn) throws SQLException {
+    public T getById(int id, String tableName, Connection conn) throws SQLException {
 
         String sql = selectWhere(tableName, "", "id");
         PreparedStatement pstmt = conn.prepareStatement(sql);

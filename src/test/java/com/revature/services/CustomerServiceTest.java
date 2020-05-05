@@ -1,10 +1,11 @@
 package com.revature.services;
 
 import com.revature.models.Bicycle;
-import com.revature.models.Person;
+import com.revature.models.User;
 import org.junit.Before;
 import org.junit.Test;
 
+import static com.revature.models.User.Role.Customer;
 import static com.revature.services.CustomerService.getAvailableBicycles;
 import static org.junit.Assert.assertEquals;
 
@@ -29,7 +30,7 @@ public class CustomerServiceTest {
 
     @Test
     public void testGetAvailableBicycles2() {
-        Person person = new Person();
+        User person = new User("multezem", "kedir", "testuser", "password", Customer);
 
         for (int i = 0; i < 10; i++) {
 

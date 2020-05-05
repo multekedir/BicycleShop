@@ -16,10 +16,14 @@ public class BicycleDAOTest {
         assertNotNull(bicycle.getId());
     }
 
+
     @Test
-    public void test() {
-        Bicycle bicycle = new Bicycle("NAME", 45.20);
-        assertTrue(dao.insert(bicycle));
-        assertNotNull(bicycle.getId());
+    public void testGetByID() {
+        assertNotNull(dao.getBicycleAOByID(4));
+    }
+
+    @Test
+    public void testGetAll() {
+        System.out.println(dao.getAll());
     }
 }

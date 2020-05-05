@@ -97,7 +97,7 @@ public class UserDAO extends DAO<User> {
 
         getLogger(UserDAO.class).info("Getting user using ID");
         try (Connection conn = cu.getConnection()) {
-            return super.getUserByID(id, TABLE_NAME, conn);
+            return super.getById(id, TABLE_NAME, conn);
         } catch (SQLException ex) {
             getLogger(UserDAO.class).error(ex);
 

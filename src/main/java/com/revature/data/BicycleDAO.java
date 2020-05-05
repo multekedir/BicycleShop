@@ -4,6 +4,7 @@ import com.revature.models.Bicycle;
 import com.revature.utility.ConnectionUtil;
 
 import java.sql.*;
+import java.util.Set;
 
 import static com.revature.singleton.LoggerSingleton.getLogger;
 import static com.revature.utility.SQLBuilder.insertInto;
@@ -15,7 +16,7 @@ public class BicycleDAO extends DAO<Bicycle> {
 
     @Override
     PreparedStatement exctractData(PreparedStatement ps, Bicycle bicycle) throws SQLException {
-        getLogger(UserDAO.class).debug("Extracting user data");
+        getLogger(BicycleDAO.class).debug("Extracting bicycle data");
         assert (ps != null & bicycle != null);
         ps.setString(1, bicycle.getName());
         ps.setDouble(2, bicycle.getCost());
@@ -27,13 +28,16 @@ public class BicycleDAO extends DAO<Bicycle> {
 
     @Override
     Bicycle setData(ResultSet rs) throws SQLException {
-        return null;
+        getLogger(BicycleDAO.class).info("Setting bicycle data");
+        Bicycle bicycle = new Bicycle(rs);
+        getLogger(BicycleDAO.class).debug(bicycle);
+        return bicycle;
     }
 
     @Override
     void exctractID(Bicycle bicycle, ResultSet rs) throws SQLException {
         if (rs.next()) {
-            getLogger(UserDAO.class).info("Extracting user ID");
+            getLogger(BicycleDAO.class).info("Extracting bicycle ID");
             bicycle.setId(rs.getInt(1));
         }
     }
@@ -54,6 +58,30 @@ public class BicycleDAO extends DAO<Bicycle> {
         getLogger(BicycleDAO.class).debug("Connection Closed");
         getLogger(BicycleDAO.class).info("Bicycle not added");
         return false;
+    }
+
+    public Bicycle getBicycleAOByID(int id) {
+
+        getLogger(BicycleDAO.class).info("Getting bicycle using ID");
+        try (Connection conn = cu.getConnection()) {
+            return super.getById(id, TABLE_NAME, conn);
+        } catch (SQLException ex) {
+            getLogger(BicycleDAO.class).error(ex);
+
+        }
+
+        return null;
+
+    }
+
+    public Set<Bicycle> getAll() {
+        try (Connection conn = cu.getConnection()) {
+            return super.getAll(TABLE_NAME, conn);
+        } catch (SQLException ex) {
+            getLogger(BicycleDAO.class).error(ex);
+
+        }
+        return null;
     }
 
     @Override

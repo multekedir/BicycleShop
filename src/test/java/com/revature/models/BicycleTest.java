@@ -3,6 +3,7 @@ package com.revature.models;
 import org.junit.Before;
 import org.junit.Test;
 
+import static com.revature.models.User.Role.Customer;
 import static org.junit.Assert.*;
 
 public class BicycleTest {
@@ -44,7 +45,7 @@ public class BicycleTest {
 
     @Test
     public void setOwner() {
-        Person p = new Person();
+        User p = new User("multezem", "kedir", "testuser", "password", Customer);
         bicycle.setOwner(p);
         assertTrue(bicycle.getOwner().equals(p));
     }

@@ -1,7 +1,10 @@
 package com.revature.models;
 
+import com.revature.data.UserDAO;
 import com.revature.singleton.LoggerSingleton;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.StringJoiner;
 
 public class Bicycle {
@@ -23,6 +26,16 @@ public class Bicycle {
         this.cost = cost;
         LoggerSingleton.getLogger(Bicycle.class).info("Created Person with name and cost");
     }
+
+    public Bicycle(ResultSet rs) throws SQLException {
+        this.setName(rs.getString("name".toUpperCase()));
+        this.setCost(rs.getDouble("cost".toUpperCase()));
+        int ownerID = (rs.getInt("owner".toUpperCase()));
+        UserDAO dao = new UserDAO();
+        this.setOwner(rs.wasNull() ? null : dao.getUserByID(ownerID));
+
+    }
+
 
     /**
      * Gets cost.
@@ -74,10 +87,20 @@ public class Bicycle {
      *
      * @param owner New value of owner.
      */
-    public void setOwner(Person owner) {
+    public void setOwner(User owner) {
         this.owner = owner;
     }
 
+    /**
+     * Sets new owner.
+     *
+     * @param id id of the owner.
+     */
+    public void setOwner(int id) {
+        System.out.println(id);
+        UserDAO dao = new UserDAO();
+        this.owner = dao.getUserByID(id);
+    }
 
     /**
      * Gets id.
