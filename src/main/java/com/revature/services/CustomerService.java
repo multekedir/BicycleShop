@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static com.revature.data.DAOFactory.getBicycleDAO;
+import static com.revature.data.DAOFactory.getOfferDAO;
 import static com.revature.singleton.LoggerSingleton.getLogger;
 
 
@@ -30,7 +31,7 @@ public class CustomerService {
         getLogger(CustomerService.class).info("Making offer");
         if (bicycle != null && bicycle.getOwner() == null) {
             Offer newOffer = new Offer(user, bicycle, amount);
-//            newOffer.setId(getDAO(DB.Offer).insert(newOffer));
+            getOfferDAO().insert(newOffer);
 
             getLogger(CustomerService.class).debug("Offer went thru for Bicycle: " + bicycle);
             return true;

@@ -7,7 +7,9 @@ import org.junit.Test;
 
 import static com.revature.models.User.Role.Customer;
 import static com.revature.services.CustomerService.getAvailableBicycles;
+import static com.revature.services.CustomerService.makeOffer;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class CustomerServiceTest {
     private final String NAME = "ROUBAIX";
@@ -38,13 +40,13 @@ public class CustomerServiceTest {
         assertEquals(0, getAvailableBicycles().size());
     }
 
-//    @Test
-//    public void testMakeOffer() {
-//        User user = new User("Multezem", "Kedir", "multek", "password", Role.Customer);
-//        LoginService.register(user);
-//        Bicycle bicycle = EmployeeService.addBicycle(new Bicycle("NAME", 500));
-//        assertTrue(makeOffer(user, bicycle, 200));
-//    }
+    @Test
+    public void testMakeOffer() {
+        User user = new User("Multezem", "Kedir", "jonh", "password", User.Role.Customer);
+        LoginService.register(user);
+        Bicycle bicycle = EmployeeService.addBicycle(new Bicycle("NAMjomE", 500));
+        assertTrue(makeOffer(user, bicycle, 200));
+    }
 //
 //    @Test
 //    public void testMakeOfferOwned() {

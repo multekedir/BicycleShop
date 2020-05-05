@@ -2,7 +2,6 @@ package com.revature.data;
 
 import com.revature.models.User;
 import com.revature.utility.ConnectionUtil;
-import org.jetbrains.annotations.NotNull;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -119,7 +118,7 @@ public class UserDAO extends DAO<User> {
     }
 
 
-    public User update(@NotNull User user) {
+    public User update(User user) {
         StringBuilder builder = new StringBuilder();
 
         String sql = updateSQL(TABLE_NAME, "id", "user_name", "first_name", "last_name", "password", "role");

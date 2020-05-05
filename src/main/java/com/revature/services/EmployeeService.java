@@ -36,7 +36,7 @@ public class EmployeeService {
     public static boolean acceptOffer(Offer offer, User employee) {
         getLogger(EmployeeService.class).debug("Accepting offer  -> " + offer);
         if (offer != null && employee != null) {
-            offer.setStatus(Status.ACCEPTED, employee);
+            offer.setStatus(Status.ACCEPTED);
             offer.getBicycle().setOwner(offer.getUser());
 //            getDAO(DB.Offer).update(offer.getId(), offer);
 //            getDAO(DB.Bicycle).update(offer.getBicycle().getId(), offer.getBicycle());
@@ -49,7 +49,7 @@ public class EmployeeService {
     public static boolean rejectOffer(Offer offer, User employee) {
         getLogger(EmployeeService.class).debug("Rejecting offer  -> " + offer);
         if (offer != null && employee != null) {
-            offer.setStatus(Status.DENIED, employee);
+            offer.setStatus(Status.DENIED);
 //            getDAO(DB.Offer).update(offer.getId(), offer);
             return true;
         }

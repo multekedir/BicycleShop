@@ -38,7 +38,7 @@ public class Offer {
      * @param s          New value of status.
      * @param acceptedBy employee accepting offer
      */
-    public void setStatus(Status s, Person acceptedBy) {
+    public void setStatus(Status s) {
         this.acceptedBy = acceptedBy;
         this.status = String.valueOf(s);
     }
