@@ -1,8 +1,10 @@
 package com.revature.utility;
 
-import java.io.InputStream;
+import java.io.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Properties;
 
 import static com.revature.singleton.LoggerSingleton.getLogger;
@@ -50,5 +52,38 @@ public class ConnectionUtil {
             e.printStackTrace();
         }
         return conn;
+    }
+
+    public static void setUP(Connection conn) throws SQLException {
+        InputStream script = null;
+        String scriptFilePath = "C:\\Users\\kedir\\Documents\\BicycleShop\\src\\main\\resources\\SQL\\prod_db.sql";
+        BufferedReader reader = null;
+        try {
+            Statement statement = conn.createStatement();
+            reader = new BufferedReader(new FileReader(scriptFilePath));
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                // execute query
+                System.out.println(line);
+                statement.execute(line);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            // close file reader
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            // close db connection
+            if (conn != null) {
+                conn.close();
+            }
+        }
     }
 }

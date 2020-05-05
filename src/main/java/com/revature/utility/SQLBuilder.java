@@ -26,12 +26,12 @@ public class SQLBuilder {
     }
 
 
-    public static String update(String tableName, String whereColumn, String... columns) {
+    public static String updateSQL(String tableName, String whereColumn, String... columns) {
         StringBuilder builder = new StringBuilder("UPDATE ").append(tableName).append(" SET ");
         for (String column : columns) {
             builder.append(column).append("=?,");
         }
-        return builder.deleteCharAt(builder.length() - 1).append(" WHERE ").append(whereColumn).append("=?;").toString();
+        return builder.deleteCharAt(builder.length() - 1).append(" WHERE ").append(whereColumn).append("=?").toString();
     }
 
     public static String selectWhere(String tableName, String operator, String... columns) {
@@ -40,13 +40,17 @@ public class SQLBuilder {
             builder.append(column).append(" = ? ").append(operator + " ");
         }
 
-        return builder.deleteCharAt(builder.length() - 2).toString() + ";";
+        return builder.deleteCharAt(builder.length() - 2).toString();
+    }
+
+    public static String selectAll(String tableName) {
+        StringBuilder builder = new StringBuilder("SELECT  * FROM ").append(tableName);
+
+        return builder.toString();
     }
 
 
-
-
-//    public static String createTable(String schema, String tableName,  Pair<String, Pair<String, Boolean>> ... columns) {
+    //    public static String createTable(String schema, String tableName,  Pair<String, Pair<String, Boolean>> ... columns) {
 //        StringBuilder builder = new StringBuilder("CREATE TABLE ").append(getTableName(schema, tableName)).append("(\n");
 //        for (Pair<String, Pair<String, Boolean>> column : columns) {
 //            builder.append(column.getCar()).append(' ').append(column.getCdr().getCar());
@@ -58,21 +62,9 @@ public class SQLBuilder {
 //        return builder.deleteCharAt(builder.length()-1).append(");").toString();
 //
 //    }
+    public static String deleteSQL(String tableName) {
+        StringBuilder builder = new StringBuilder("DELETE FROM ").append(tableName).append(" WHERE id = ?");
 
-    public static String setPrimaryKey(String schema, String tableName, String primaryKeyName, String... columns) {
-        StringBuilder builder = new StringBuilder("ALTER TABLE ")
-                .append(tableName)
-                .append('(')
-                .append("ADD CONSTRAINT ")
-                .append(primaryKeyName)
-                .append(" PRIMARY KEY (");
-        for (String column : columns) {
-            builder.append(column).append(",");
-        }
-
-        return builder.deleteCharAt(builder.length() - 1).append(");").toString();
-
+        return builder.toString();
     }
-
-
 }

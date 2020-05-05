@@ -2,14 +2,11 @@ package com.revature.services;
 
 import com.revature.models.Bicycle;
 import com.revature.models.Person;
-import com.revature.models.User;
-import com.revature.models.User.Role;
 import org.junit.Before;
 import org.junit.Test;
 
 import static com.revature.services.CustomerService.getAvailableBicycles;
-import static com.revature.services.CustomerService.makeOffer;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class CustomerServiceTest {
     private final String NAME = "ROUBAIX";
@@ -44,22 +41,22 @@ public class CustomerServiceTest {
         assertEquals(5, getAvailableBicycles().size());
     }
 
-    @Test
-    public void testMakeOffer() {
-        User user = new User("Multezem", "Kedir", "multek", "password", Role.Customer);
-        LoginService.register(user);
-        Bicycle bicycle = EmployeeService.addBicycle(new Bicycle("NAME", 500));
-        assertTrue(makeOffer(user, bicycle, 200));
-    }
-
-    @Test
-    public void testMakeOfferOwned() {
-        User user = new User("Multezem", "Kedir", "multek", "password", Role.Customer);
-        LoginService.register(user);
-        Bicycle bicycle = EmployeeService.addBicycle(new Bicycle("NAME", 500));
-        bicycle.setOwner(user);
-        assertFalse(makeOffer(user, bicycle, 200));
-    }
+//    @Test
+//    public void testMakeOffer() {
+//        User user = new User("Multezem", "Kedir", "multek", "password", Role.Customer);
+//        LoginService.register(user);
+//        Bicycle bicycle = EmployeeService.addBicycle(new Bicycle("NAME", 500));
+//        assertTrue(makeOffer(user, bicycle, 200));
+//    }
+//
+//    @Test
+//    public void testMakeOfferOwned() {
+//        User user = new User("Multezem", "Kedir", "multek", "password", Role.Customer);
+//        LoginService.register(user);
+//        Bicycle bicycle = EmployeeService.addBicycle(new Bicycle("NAME", 500));
+//        bicycle.setOwner(user);
+//        assertFalse(makeOffer(user, bicycle, 200));
+//    }
 
 
 }

@@ -1,14 +1,11 @@
 package com.revature.services;
 
-import com.revature.data.DAOFactory.DB;
 import com.revature.models.Bicycle;
 import com.revature.models.Offer;
 import com.revature.models.User;
 
 import java.util.ArrayList;
-import java.util.Set;
 
-import static com.revature.data.DAOFactory.getDAO;
 import static com.revature.singleton.LoggerSingleton.getLogger;
 
 
@@ -18,14 +15,14 @@ public class CustomerService {
 
     public static ArrayList<Bicycle> getAvailableBicycles() {
         ArrayList<Bicycle> availableBicycles = new ArrayList();
-        Set<Bicycle> bicycles = getDAO(DB.Bicycle).getAll();
-
-        if (getDAO(DB.Bicycle) != null) {
-            for (Bicycle bicycle : bicycles) {
-                if (bicycle.getOwner() == null)
-                    availableBicycles.add(bicycle);
-            }
-        }
+//        Set<Bicycle> bicycles = getUserDAO().getAll();
+//
+//        if (getDAO(DB.Bicycle) != null) {
+//            for (Bicycle bicycle : bicycles) {
+//                if (bicycle.getOwner() == null)
+//                    availableBicycles.add(bicycle);
+//            }
+//        }
         return availableBicycles;
     }
 
@@ -33,7 +30,7 @@ public class CustomerService {
         getLogger(CustomerService.class).info("Making offer");
         if (bicycle != null && bicycle.getOwner() == null) {
             Offer newOffer = new Offer(user, bicycle, amount);
-            newOffer.setId(getDAO(DB.Offer).add(newOffer));
+//            newOffer.setId(getDAO(DB.Offer).insert(newOffer));
 
             getLogger(CustomerService.class).debug("Offer went thru for Bicycle: " + bicycle);
             return true;

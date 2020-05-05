@@ -13,6 +13,7 @@ public class Person {
 
     private String firstName;
     private String lastName;
+    private int id;
 
     public Person() {
         this.firstName = "firstName";
@@ -103,4 +104,11 @@ public class Person {
         return Objects.hash(firstName, lastName);
     }
 
+    public int getID() {
+        return id;
+    }
+
+    public void setID(int id) {
+        this.id = id;
+    }
 }

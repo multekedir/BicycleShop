@@ -1,14 +1,11 @@
 package com.revature.services;
 
 
-import com.revature.data.DAOFactory.DB;
-import com.revature.data.GenericDAO;
 import com.revature.models.Bicycle;
 import com.revature.models.Offer;
 import com.revature.models.Offer.Status;
 import com.revature.models.User;
 
-import static com.revature.data.DAOFactory.getDAO;
 import static com.revature.singleton.LoggerSingleton.getLogger;
 
 
@@ -17,20 +14,20 @@ public class EmployeeService {
 
     public static Bicycle addBicycle(Bicycle bicycle) {
         getLogger(EmployeeService.class).info("Adding Bicycle");
-        int id = getDAO(DB.Bicycle).add(bicycle);
-        bicycle.setId(id);
+//        int id = getDAO(DB.Bicycle).add(bicycle);
+//        bicycle.setId(id);
         return bicycle;
     }
 
     public static boolean removeBicycle(Bicycle bicycle) {
         getLogger(EmployeeService.class).debug("Removing -> " + bicycle);
-        if (getDAO(DB.Bicycle).size() > 0 && bicycle != null) {
-            if (bicycle.getId() != null) {
-                return getDAO(DB.Bicycle).delete(bicycle.getId());
-            }
-            getLogger(EmployeeService.class).error("Bicycle not added properly. ID is NULL " + bicycle);
-
-        }
+//        if (getDAO(DB.Bicycle).size() > 0 && bicycle != null) {
+//            if (bicycle.getId() != null) {
+//                return getDAO(DB.Bicycle).delete(bicycle.getId());
+//            }
+//            getLogger(EmployeeService.class).error("Bicycle not added properly. ID is NULL " + bicycle);
+//
+//        }
         getLogger(EmployeeService.class).error("Something went wrong  " + bicycle);
         return false;
     }
@@ -40,8 +37,8 @@ public class EmployeeService {
         if (offer != null && employee != null) {
             offer.setStatus(Status.ACCEPTED, employee);
             offer.getBicycle().setOwner(offer.getUser());
-            getDAO(DB.Offer).update(offer.getId(), offer);
-            getDAO(DB.Bicycle).update(offer.getBicycle().getId(), offer.getBicycle());
+//            getDAO(DB.Offer).update(offer.getId(), offer);
+//            getDAO(DB.Bicycle).update(offer.getBicycle().getId(), offer.getBicycle());
             return true;
         }
         getLogger(EmployeeService.class).error("Null value Offer: " + offer + " Employee: " + employee);
@@ -52,7 +49,7 @@ public class EmployeeService {
         getLogger(EmployeeService.class).debug("Rejecting offer  -> " + offer);
         if (offer != null && employee != null) {
             offer.setStatus(Status.DENIED, employee);
-            getDAO(DB.Offer).update(offer.getId(), offer);
+//            getDAO(DB.Offer).update(offer.getId(), offer);
             return true;
         }
         getLogger(EmployeeService.class).error("Null value Offer: " + offer + " Employee: " + employee);
@@ -63,9 +60,9 @@ public class EmployeeService {
         return false;
     }
 
-    public static GenericDAO<Bicycle> getBicycleDB() {
-        return getDAO(DB.Bicycle);
-    }
+//    public static GenericDAO<Bicycle> getBicycleDB() {
+//        return getDAO(DB.Bicycle);
+//    }
 
 
 }

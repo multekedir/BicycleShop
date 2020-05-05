@@ -1,6 +1,8 @@
 package com.revature.models;
 
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.StringJoiner;
 
 import static com.revature.singleton.LoggerSingleton.getLogger;
@@ -31,6 +33,15 @@ public class User extends Person {
         setFirstName(firstName);
         setFirstName(lastName);
         getLogger(User.class).info("Created User");
+    }
+
+    public User(ResultSet rs) throws SQLException {
+        super.setFirstName(rs.getString("first_name".toUpperCase()));
+        super.setLastName(rs.getString("last_name".toUpperCase()));
+        this.username = (rs.getString("user_name".toUpperCase()));
+        this.password = (rs.getString("password".toUpperCase()));
+        this.role = Role.valueOf(rs.getString("role".toUpperCase()));
+        super.setID(rs.getInt("ID"));
     }
 
     /**
@@ -68,8 +79,6 @@ public class User extends Person {
      * @return true password match
      */
     public boolean checkPassword(String password) {
-//        System.out.println("Password failed");
-        getLogger(User.class).info("Password failed");
         return this.password.equals(password);
     }
 
@@ -79,6 +88,7 @@ public class User extends Person {
                 .add("firstName = " + this.getFirstName())
                 .add("lastName = " + this.getLastName())
                 .add("username = " + username)
+                .add("id = " + super.getID())
                 .toString();
     }
 
