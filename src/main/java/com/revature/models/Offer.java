@@ -153,6 +153,10 @@ public class Offer {
         /**
          * Denied status.
          */
-        DENIED
+        DENIED,
+        /**
+         * PENDING status.
+         */
+        PENDING
     }
 }

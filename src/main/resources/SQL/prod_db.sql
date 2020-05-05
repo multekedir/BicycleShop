@@ -63,5 +63,21 @@ alter table bicycles
         primary key (ID)
 /
 
+create table offers
+(
+    user_id    int
+        constraint OFFERS_USERS_ID_FK
+            references USERS
+                on delete set null,
+    bicycle_id int
+        constraint OFFERS_BICYCLES_ID_FK
+            references BICYCLES
+                on delete set null,
+    amount     Number not null,
+    status     varchar2(10) default null
+)
+/
+
+
 commit;
 exit;
