@@ -8,6 +8,7 @@ import java.util.Set;
 
 import static com.revature.singleton.LoggerSingleton.getLogger;
 import static com.revature.utility.SQLBuilder.insertInto;
+import static com.revature.utility.SQLBuilder.updateSQL;
 
 public class BicycleDAO extends DAO<Bicycle> {
 
@@ -60,7 +61,7 @@ public class BicycleDAO extends DAO<Bicycle> {
         return false;
     }
 
-    public Bicycle getBicycleAOByID(int id) {
+    public Bicycle getBicycleById(int id) {
 
         getLogger(BicycleDAO.class).info("Getting bicycle using ID");
         try (Connection conn = cu.getConnection()) {
@@ -85,7 +86,48 @@ public class BicycleDAO extends DAO<Bicycle> {
     }
 
     @Override
-    Bicycle update(Bicycle bicycle) throws SQLException {
+    Bicycle update(Bicycle bicycle) {
+        assert (bicycle != null && bicycle.getId() != null);
+
+        String sql = updateSQL(TABLE_NAME, "id", "name", "cost", "owner");
+        getLogger(BicycleDAO.class).info("Updating to " + bicycle);
+        getLogger(BicycleDAO.class).debug("My SQL statement " + sql);
+        try (Connection conn = cu.getConnection()) {
+            conn.setAutoCommit(false);
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, bicycle.getName());
+            pstmt.setDouble(2, bicycle.getCost());
+            if (bicycle.getOwner() != null)
+                pstmt.setInt(3, bicycle.getOwner().getID());
+            pstmt.setNull(3, Types.INTEGER);
+            pstmt.setInt(4, bicycle.getId());
+            int rowsAffected = pstmt.executeUpdate();
+            if (rowsAffected > 0) {
+                getLogger(BicycleDAO.class).info("Bicycle successfully updated.");
+                conn.commit();
+                return bicycle;
+            } else {
+                getLogger(BicycleDAO.class).info("No Bicycle found with that id.");
+                conn.rollback();
+            }
+
+
+        } catch (SQLException ex) {
+            getLogger(BicycleDAO.class).error(ex.toString());
+        }
+        getLogger(BicycleDAO.class).debug("Connection Closed");
+        getLogger(BicycleDAO.class).info("Bicycle not added");
+
         return null;
+    }
+
+    public boolean delete(Bicycle bicycle) {
+        try (Connection conn = cu.getConnection()) {
+            return super.delete(bicycle.getId(), TABLE_NAME, conn);
+        } catch (SQLException ex) {
+            getLogger(BicycleDAO.class).error(ex);
+        }
+        getLogger(BicycleDAO.class).debug("Connection Closed");
+        return false;
     }
 }

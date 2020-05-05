@@ -26,7 +26,8 @@ public class UserDAOTest {
 
     @Test
     public void testGetByID() {
-        assertNotNull(dao.getUserByID(113));
+        assertNotNull(dao.getUserByID(1));
+        assertNotNull(dao.getUserByID(1).getID());
     }
 
     @Test

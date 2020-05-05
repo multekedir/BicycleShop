@@ -33,7 +33,7 @@ public class Bicycle {
         int ownerID = (rs.getInt("owner".toUpperCase()));
         UserDAO dao = new UserDAO();
         this.setOwner(rs.wasNull() ? null : dao.getUserByID(ownerID));
-
+        this.setId(rs.getInt("ID"));
     }
 
 
