@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.StringJoiner;
 
+import static com.revature.data.DAOFactory.getUserDAO;
+
 public class Bicycle {
     private Integer id;
     private String name;
@@ -31,8 +33,7 @@ public class Bicycle {
         this.setName(rs.getString("name".toUpperCase()));
         this.setCost(rs.getDouble("cost".toUpperCase()));
         int ownerID = (rs.getInt("owner".toUpperCase()));
-        UserDAO dao = new UserDAO();
-        this.setOwner(rs.wasNull() ? null : dao.getUserByID(ownerID));
+        this.setOwner(getUserDAO().getUserByID(ownerID));
         this.setId(rs.getInt("ID"));
     }
 

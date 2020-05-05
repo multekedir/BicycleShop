@@ -34,4 +34,9 @@ public class BicycleDAOTest {
         bicycle.setName("newName");
         dao.update(bicycle);
     }
+
+    @Test
+    public void testDelete() {
+        dao.delete(dao.getBicycleById(5));
+    }
 }

@@ -30,16 +30,12 @@ public class CustomerServiceTest {
 
     @Test
     public void testGetAvailableBicycles2() {
-        User person = new User("multezem", "kedir", "testuser", "password", Customer);
-
-        for (int i = 0; i < 10; i++) {
-
-            if (i % 2 == 0) EmployeeService.addBicycle(new Bicycle(NAME + i, COST));
-            Bicycle bicycle = new Bicycle(NAME + i, COST);
-            bicycle.setOwner(person);
-            EmployeeService.addBicycle(bicycle);
-        }
-        assertEquals(5, getAvailableBicycles().size());
+        User person = new User("multezem", "kedir", "test", "password", Customer);
+        LoginService.register(person);
+        Bicycle bicycle = new Bicycle(NAME, COST);
+        bicycle.setOwner(person);
+        EmployeeService.addBicycle(bicycle);
+        assertEquals(0, getAvailableBicycles().size());
     }
 
 //    @Test

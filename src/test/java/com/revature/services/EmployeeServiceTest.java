@@ -31,9 +31,8 @@ public class EmployeeServiceTest {
     @Test
     public void testAddBicycle() {
 //       id should null before adding to db
+        assertNull(bicycle);
         assertNull(bicycle.getId());
-        int id = addBicycle(bicycle).getId();
-//        assertEquals(bicycle, getBicycleDB().getById(id));
     }
 
 

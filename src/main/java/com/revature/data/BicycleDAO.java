@@ -21,9 +21,11 @@ public class BicycleDAO extends DAO<Bicycle> {
         assert (ps != null & bicycle != null);
         ps.setString(1, bicycle.getName());
         ps.setDouble(2, bicycle.getCost());
-        if (bicycle.getOwner() != null)
+        if (bicycle.getOwner() != null) {
             ps.setInt(3, bicycle.getOwner().getID());
-        ps.setNull(3, Types.INTEGER);
+        } else {
+            ps.setNull(3, Types.INTEGER);
+        }
         return ps;
     }
 

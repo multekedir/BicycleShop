@@ -4,25 +4,25 @@ import com.revature.models.Bicycle;
 import com.revature.models.Offer;
 import com.revature.models.User;
 
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
+import static com.revature.data.DAOFactory.getBicycleDAO;
 import static com.revature.singleton.LoggerSingleton.getLogger;
 
 
 public class CustomerService {
 
 
-
-    public static ArrayList<Bicycle> getAvailableBicycles() {
-        ArrayList<Bicycle> availableBicycles = new ArrayList();
-//        Set<Bicycle> bicycles = getUserDAO().getAll();
-//
-//        if (getDAO(DB.Bicycle) != null) {
-//            for (Bicycle bicycle : bicycles) {
-//                if (bicycle.getOwner() == null)
-//                    availableBicycles.add(bicycle);
-//            }
-//        }
+    public static Set<Bicycle> getAvailableBicycles() {
+        Set<Bicycle> availableBicycles = new HashSet<>();
+        Set<Bicycle> bicycles = getBicycleDAO().getAll();
+        if (!bicycles.isEmpty()) {
+            for (Bicycle bicycle : bicycles) {
+                if (bicycle.getOwner() == null)
+                    availableBicycles.add(bicycle);
+            }
+        }
         return availableBicycles;
     }
 
