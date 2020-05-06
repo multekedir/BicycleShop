@@ -6,7 +6,10 @@ import com.revature.models.Offer;
 import com.revature.models.Offer.Status;
 import com.revature.models.User;
 
+import java.util.Set;
+
 import static com.revature.data.DAOFactory.getBicycleDAO;
+import static com.revature.data.DAOFactory.getOfferDAO;
 import static com.revature.singleton.LoggerSingleton.getLogger;
 
 
@@ -33,27 +36,47 @@ public class EmployeeService {
         return false;
     }
 
-    public static boolean acceptOffer(Offer offer, User employee) {
+    public static Set<Bicycle> allBicycle() {
+        return getBicycleDAO().getAll();
+    }
+
+    public static Set<Offer> allOffer() {
+        return getOfferDAO().getAll();
+    }
+
+    public static boolean acceptOffer(int id) {
+        Offer offer = getOfferDAO().getOfferByID(id);
+
         getLogger(EmployeeService.class).debug("Accepting offer  -> " + offer);
-        if (offer != null && employee != null) {
+        if (offer != null) {
+            Bicycle bicycle = offer.getBicycle();
             offer.setStatus(Status.ACCEPTED);
-            offer.getBicycle().setOwner(offer.getUser());
-//            getDAO(DB.Offer).update(offer.getId(), offer);
-//            getDAO(DB.Bicycle).update(offer.getBicycle().getId(), offer.getBicycle());
+            bicycle.setOwner(offer.getUser());
+            getOfferDAO().update(offer);
+            getBicycleDAO().update(bicycle);
+
+//            for (Offer off : getOfferDAO().getAllOtherOffers(bicycle)) {
+//                if (off.getId() == offer.getId())
+//                    continue;
+//                rejectOffer(offer);
+//
+//
+//            }
             return true;
         }
-        getLogger(EmployeeService.class).error("Null value Offer: " + offer + " Employee: " + employee);
+        getLogger(EmployeeService.class).error("Null value Offer: " + offer);
         return false;
     }
 
-    public static boolean rejectOffer(Offer offer, User employee) {
+    public static boolean rejectOffer(int id) {
+        Offer offer = getOfferDAO().getOfferByID(id);
         getLogger(EmployeeService.class).debug("Rejecting offer  -> " + offer);
-        if (offer != null && employee != null) {
+        if (offer != null) {
             offer.setStatus(Status.DENIED);
-//            getDAO(DB.Offer).update(offer.getId(), offer);
+            getOfferDAO().update(offer);
             return true;
         }
-        getLogger(EmployeeService.class).error("Null value Offer: " + offer + " Employee: " + employee);
+        getLogger(EmployeeService.class).error("Null value Offer: " + offer);
         return false;
     }
 

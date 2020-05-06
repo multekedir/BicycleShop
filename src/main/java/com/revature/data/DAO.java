@@ -35,7 +35,7 @@ public abstract class DAO<T> {
         return false;
     }
 
-    public T getById(int id, String tableName, Connection conn) throws SQLException {
+    protected T getById(int id, String tableName, Connection conn) throws SQLException {
 
         String sql = selectWhere(tableName, "", "id");
         PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -45,14 +45,50 @@ public abstract class DAO<T> {
             getLogger(DAO.class).debug("Object with id " + id + " found. ");
             return setData(rs);
         }
-        getLogger(DAO.class).info("Not Found");
-
-
+        getLogger(DAO.class).info("Not Found " + id);
         return null;
+    }
+
+    protected Set<T> getFiltered(String tableName, String column, String lookingFor, Connection conn) throws SQLException {
+        getLogger(DAO.class).info("Getting filtered data " + column + " we are looking for " + lookingFor + " in " + tableName);
+        Set<T> out = new HashSet<T>();
+        String sql = selectWhere(tableName, "", column);
+        getLogger(DAO.class).debug("My SQL statement " + sql);
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, lookingFor);
+        ResultSet rs = pstmt.executeQuery();
+
+        while (rs.next()) {
+            getLogger(DAO.class).debug("Object with" + column + lookingFor + " found. ");
+            out.add(setData(rs));
+        }
+        getLogger(DAO.class).info("Not Found " + lookingFor);
+
+
+        return out;
+    }
+
+    protected Set<T> getFiltered(String tableName, String column, int lookingFor, Connection conn) throws SQLException {
+        getLogger(DAO.class).info("Getting filtered data " + column + " we are looking for " + lookingFor + " in " + tableName);
+        Set<T> collections = new HashSet<T>();
+        String sql = selectWhere(tableName, "", column);
+        getLogger(DAO.class).debug("My SQL statement " + sql);
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setInt(1, lookingFor);
+        ResultSet rs = pstmt.executeQuery();
+        while (rs.next()) {
+            getLogger(DAO.class).debug("Object with" + column + lookingFor + " found. ");
+            collections.add(setData(rs));
+        }
+        getLogger(DAO.class).info("Not Found" + lookingFor);
+
+
+        return collections;
     }
 
 
     public Set<T> getAll(String tableName, Connection conn) throws SQLException {
+        getLogger(DAO.class).info("Getting all");
         Set<T> collections = new HashSet<T>();
 
         String sql = selectAll(tableName);

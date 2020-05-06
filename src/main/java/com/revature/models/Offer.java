@@ -2,6 +2,7 @@ package com.revature.models;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
 
 import static com.revature.data.DAOFactory.getBicycleDAO;
 import static com.revature.data.DAOFactory.getUserDAO;
@@ -11,6 +12,34 @@ import static com.revature.data.DAOFactory.getUserDAO;
  */
 public class Offer {
     private Status status;
+
+    public Offer(ResultSet rs) throws SQLException {
+        int userId = (rs.getInt("user_id".toUpperCase()));
+        this.setUser(getUserDAO().getUserByID(userId));
+
+        int bicycleId = (rs.getInt("bicycle_id".toUpperCase()));
+        this.setBicycle(getBicycleDAO().getBicycleById(bicycleId));
+
+        this.setAmount(rs.getInt("amount".toUpperCase()));
+
+
+        this.setStatus(rs.getString("status".toUpperCase()));
+
+        this.setId(rs.getInt("ID"));
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Offer)) return false;
+        Offer offer = (Offer) o;
+        return id == offer.id &&
+                Double.compare(offer.amount, amount) == 0 &&
+                status == offer.status &&
+                user.equals(offer.user) &&
+                bicycle.equals(offer.bicycle) &&
+                Objects.equals(acceptedBy, offer.acceptedBy);
+    }
 
     /**
      * Instantiates a new Offer.
@@ -38,16 +67,9 @@ public class Offer {
         this.amount = amount;
     }
 
-    public Offer(ResultSet rs) throws SQLException {
-        int userId = (rs.getInt("user_id".toUpperCase()));
-        this.setUser(getUserDAO().getUserByID(userId));
-
-        int bicycleId = (rs.getInt("bicycle_id".toUpperCase()));
-        this.setBicycle(getBicycleDAO().getBicycleById(bicycleId));
-
-        this.setStatus(rs.getString("status".toUpperCase()));
-
-        this.setId(rs.getInt("ID"));
+    @Override
+    public int hashCode() {
+        return Objects.hash(status, user, bicycle, id, amount, acceptedBy);
     }
 
     @Override

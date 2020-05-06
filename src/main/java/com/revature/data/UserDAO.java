@@ -1,6 +1,7 @@
 package com.revature.data;
 
 import com.revature.models.User;
+import com.revature.models.User.Role;
 import com.revature.utility.ConnectionUtil;
 
 import java.sql.Connection;
@@ -114,6 +115,17 @@ public class UserDAO extends DAO<User> {
             getLogger(UserDAO.class).error(ex);
 
         }
+        return null;
+    }
+
+    public Set<User> filterWithRole(Role role) {
+        try (Connection conn = cu.getConnection()) {
+            return super.getFiltered(TABLE_NAME, "role", String.valueOf(role), conn);
+        } catch (SQLException ex) {
+            getLogger(UserDAO.class).error(ex);
+
+        }
+
         return null;
     }
 

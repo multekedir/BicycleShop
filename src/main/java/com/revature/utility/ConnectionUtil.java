@@ -56,7 +56,7 @@ public class ConnectionUtil {
 
     public static void setUP(Connection conn) throws SQLException {
         InputStream script = null;
-        String scriptFilePath = "C:\\Users\\kedir\\Documents\\BicycleShop\\src\\main\\resources\\SQL\\prod_db.sql";
+        String scriptFilePath = "C:\\Users\\kedir\\Documents\\BicycleShop\\src\\BicycleShop\\resources\\SQL\\prod_db.sql";
         BufferedReader reader = null;
         try {
             Statement statement = conn.createStatement();

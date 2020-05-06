@@ -27,6 +27,7 @@ public class CustomerService {
         return availableBicycles;
     }
 
+
     public static boolean makeOffer(User user, Bicycle bicycle, double amount) {
         getLogger(CustomerService.class).info("Making offer");
         if (bicycle != null && bicycle.getOwner() == null) {

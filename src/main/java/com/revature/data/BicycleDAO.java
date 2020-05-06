@@ -77,6 +77,7 @@ public class BicycleDAO extends DAO<Bicycle> {
 
     }
 
+
     public Set<Bicycle> getAll() {
         try (Connection conn = cu.getConnection()) {
             return super.getAll(TABLE_NAME, conn);
@@ -88,7 +89,7 @@ public class BicycleDAO extends DAO<Bicycle> {
     }
 
     @Override
-    Bicycle update(Bicycle bicycle) {
+    public Bicycle update(Bicycle bicycle) {
         assert (bicycle != null && bicycle.getId() != null);
 
         String sql = updateSQL(TABLE_NAME, "id", "name", "cost", "owner");

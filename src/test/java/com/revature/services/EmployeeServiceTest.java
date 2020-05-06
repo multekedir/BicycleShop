@@ -1,13 +1,12 @@
 package com.revature.services;
 
 import com.revature.models.Bicycle;
-import com.revature.models.Offer;
-import com.revature.models.User;
-import com.revature.models.User.Role;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import static com.revature.data.DAOFactory.getOfferDAO;
+import static com.revature.models.Offer.Status.DENIED;
 import static com.revature.services.EmployeeService.*;
 import static org.junit.Assert.*;
 
@@ -28,12 +27,14 @@ public class EmployeeServiceTest {
         bicycle = null;
     }
 
+
     @Test
     public void testAddBicycle() {
 //       id should null before adding to db
         assertNull(bicycle);
         assertNull(bicycle.getId());
     }
+
 
 
     @Test
@@ -43,6 +44,7 @@ public class EmployeeServiceTest {
         removeBicycle(bicycle);
 //        assertEquals(Integer.valueOf(oldSize - 1), getBicycleDB().size());
     }
+
 
     @Test
     public void testRemoveBicycleFromEmpty() {
@@ -57,25 +59,35 @@ public class EmployeeServiceTest {
 
     @Test
     public void testAcceptOffer() {
-        addBicycle(bicycle);
-        assertNull(bicycle.getOwner());
-        User user = new User("Multezem", "Kedir", "multek", "password", Role.Employee);
-        User employe = new User("Multezem", "Kedir", "multek", "password", Role.Employee);
-        Offer offer = new Offer(user, bicycle, 100);
-        assertTrue(acceptOffer(offer, employe));
-        assertEquals(user, bicycle.getOwner());
+//        addBicycle(bicycle);
+//        assertNull(bicycle.getOwner());
+//        User user = new User("Multezem", "Kedir", "multek", "password", Role.Employee);
+//        User employe = new User("Multezem", "Kedir", "multek", "password", Role.Employee);
+//        Offer offer = new Offer(user, bicycle, 100);
+//        assertTrue(acceptOffer(offer));
+//        assertEquals(user, bicycle.getOwner());
+//        CustomerService.makeOffer(getUserDAO().getUserByID())
+//        for (int i = 0; i < 5 ; i++) {
+//            User newUser = new User("Multezem"+i, "Kedir"+i, "multekedir"+i, "password", Customer);
+//            LoginService.register(newUser);
+//        }
+//        for (User user: getUserDAO().getAll()){
+//            CustomerService.makeOffer(user,getBicycleDAO().getBicycleById(123),2343);
+//        }
+        acceptOffer(getOfferDAO().getAll().iterator().next().getId());
 
     }
 
     @Test
     public void testRejectOffer() {
-        addBicycle(bicycle);
-        assertNull(bicycle.getOwner());
-        User user = new User("Multezem", "Kedir", "multek", "password", Role.Employee);
-        User employe = new User("Multezem", "Kedir", "multek", "password", Role.Employee);
-        Offer offer = new Offer(user, bicycle, 100);
-        assertTrue(rejectOffer(offer, employe));
-        assertNull(bicycle.getOwner());
+//        User user = new User("Multezem", "Kedir", "multek", "password", Role.Employee);
+//        User employe = new User("Multezem", "Kedir", "multek", "password", Role.Employee);
+//        Offer offer = new Offer(user, bicycle, 100);
+//        assertTrue(rejectOffer(offer));
+//        assertNull(bicycle.getOwner());
+//        assertNotEquals(String.valueOf(DENIED), getOfferDAO().getOfferByID(41).getStatus());
+        rejectOffer(41);
+        assertEquals(String.valueOf(DENIED), getOfferDAO().getOfferByID(41).getStatus());
     }
 
 

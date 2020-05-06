@@ -7,6 +7,7 @@ import com.revature.services.EmployeeService;
 import com.revature.services.LoginService;
 import org.junit.Test;
 
+import static com.revature.data.DAOFactory.getBicycleDAO;
 import static com.revature.data.DAOFactory.getOfferDAO;
 import static org.junit.Assert.assertTrue;
 
@@ -32,9 +33,16 @@ public class OfferDAOTest {
         getOfferDAO().getOfferByID(41);
     }
 
+
     @Test
     public void testGetAll() {
         System.out.println(getOfferDAO().getAll());
     }
+
+    @Test
+    public void testGetAllOtherOffers() {
+        System.out.println(getOfferDAO().getAllOtherOffers(getBicycleDAO().getBicycleById(123)));
+    }
+
 
 }
