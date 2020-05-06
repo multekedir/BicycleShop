@@ -28,7 +28,8 @@ public class CustomerService {
     }
 
 
-    public static boolean makeOffer(User user, Bicycle bicycle, double amount) {
+    public static boolean makeOffer(User user, int id, double amount) {
+        Bicycle bicycle = getBicycleDAO().getBicycleById(id);
         getLogger(CustomerService.class).info("Making offer");
         if (bicycle != null && bicycle.getOwner() == null) {
             Offer newOffer = new Offer(user, bicycle, amount);
