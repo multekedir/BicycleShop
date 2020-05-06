@@ -1,10 +1,16 @@
 package com.revature.models;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import static com.revature.data.DAOFactory.getBicycleDAO;
+import static com.revature.data.DAOFactory.getUserDAO;
+
 /**
  * The type Offer.
  */
 public class Offer {
-    private String status;
+    private Status status;
 
     /**
      * Instantiates a new Offer.
@@ -32,15 +38,45 @@ public class Offer {
         this.amount = amount;
     }
 
+    public Offer(ResultSet rs) throws SQLException {
+        int userId = (rs.getInt("user_id".toUpperCase()));
+        this.setUser(getUserDAO().getUserByID(userId));
+
+        int bicycleId = (rs.getInt("bicycle_id".toUpperCase()));
+        this.setBicycle(getBicycleDAO().getBicycleById(bicycleId));
+
+        this.setStatus(rs.getString("status".toUpperCase()));
+
+        this.setId(rs.getInt("ID"));
+    }
+
+    @Override
+    public String toString() {
+        return "Offer{" +
+                "status='" + status + '\'' +
+                ", user=" + user +
+                ", bicycle=" + bicycle +
+                ", id=" + id +
+                ", amount=" + amount +
+                '}';
+    }
+
+    /**
+     * Gets status.
+     *
+     * @return Value of status.
+     */
+    public String getStatus() {
+        return String.valueOf(status);
+    }
+
     /**
      * Sets new status.
      *
-     * @param s          New value of status.
-     * @param acceptedBy employee accepting offer
+     * @param string New value of status.
      */
-    public void setStatus(Status s) {
-        this.acceptedBy = acceptedBy;
-        this.status = String.valueOf(s);
+    public void setStatus(String string) {
+        this.status = Status.valueOf(string);
     }
 
     /**
@@ -134,12 +170,13 @@ public class Offer {
     }
 
     /**
-     * Gets status.
+     * Sets new status.
      *
-     * @return Value of status.
+     * @param s          New value of status.
      */
-    public String getStatus() {
-        return status;
+    public void setStatus(Status s) {
+        this.acceptedBy = acceptedBy;
+        this.status = s;
     }
 
     /**

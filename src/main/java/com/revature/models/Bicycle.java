@@ -26,7 +26,7 @@ public class Bicycle {
     public Bicycle(String name, double cost) {
         this.name = name;
         this.cost = cost;
-        LoggerSingleton.getLogger(Bicycle.class).info("Created Person with name and cost");
+        LoggerSingleton.getLogger(Bicycle.class).info("Created Bicycle with name and cost");
     }
 
     public Bicycle(ResultSet rs) throws SQLException {

@@ -47,15 +47,6 @@ public class CustomerServiceTest {
         Bicycle bicycle = EmployeeService.addBicycle(new Bicycle("NAMjomE", 500));
         assertTrue(makeOffer(user, bicycle, 200));
     }
-//
-//    @Test
-//    public void testMakeOfferOwned() {
-//        User user = new User("Multezem", "Kedir", "multek", "password", Role.Customer);
-//        LoginService.register(user);
-//        Bicycle bicycle = EmployeeService.addBicycle(new Bicycle("NAME", 500));
-//        bicycle.setOwner(user);
-//        assertFalse(makeOffer(user, bicycle, 200));
-//    }
 
 
 }

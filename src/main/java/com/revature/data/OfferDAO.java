@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Set;
 
 import static com.revature.models.Offer.Status;
 import static com.revature.singleton.LoggerSingleton.getLogger;
@@ -29,7 +30,10 @@ public class OfferDAO extends DAO<Offer> {
 
     @Override
     Offer setData(ResultSet rs) throws SQLException {
-        return null;
+        getLogger(OfferDAO.class).info("Setting offer data");
+        Offer offer = new Offer(rs);
+        getLogger(OfferDAO.class).debug(offer);
+        return offer;
     }
 
     @Override
@@ -38,11 +42,6 @@ public class OfferDAO extends DAO<Offer> {
             getLogger(Offer.class).info("Extracting offer ID");
             offer.setId(rs.getInt(1));
         }
-    }
-
-    @Override
-    Offer update(Offer offer) throws SQLException {
-        return null;
     }
 
     public boolean insert(Offer offer) {
@@ -60,5 +59,35 @@ public class OfferDAO extends DAO<Offer> {
 
 
         return false;
+    }
+
+    public Offer getOfferByID(int id) {
+
+        getLogger(OfferDAO.class).info("Getting offer using ID");
+        try (Connection conn = cu.getConnection()) {
+            return super.getById(id, TABLE_NAME, conn);
+        } catch (SQLException ex) {
+            getLogger(OfferDAO.class).error(ex);
+
+        }
+
+        return null;
+
+    }
+
+
+    public Set<Offer> getAll() {
+        try (Connection conn = cu.getConnection()) {
+            return super.getAll(TABLE_NAME, conn);
+        } catch (SQLException ex) {
+            getLogger(OfferDAO.class).error(ex);
+
+        }
+        return null;
+    }
+
+    @Override
+    Offer update(Offer offer) throws SQLException {
+        return null;
     }
 }
